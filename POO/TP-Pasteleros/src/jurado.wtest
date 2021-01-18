@@ -1,0 +1,8 @@
+import pasteleros.*
+import jurado.*
+
+describe "TEST DEL JURADO" {
+	test "El pastelero ganador de la prueba técnica para la Torta Wollok es sonia" {
+		assert.that(jurado.ganadorDe(tortaWollok) == sonia)
+	}
+}

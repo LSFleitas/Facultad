@@ -1,0 +1,90 @@
+import pasteleros.*
+
+describe "TEST DE LOS PASTELEROS" {
+	
+	test "El nivel de habilidad de marcos es 3.9" {
+		assert.that(marcos.habilidad() == 3.9)
+	}
+	
+	test "Creo ingrediente manteca. Le agrego el ingrediente manteca a carlos con cantidad 200.
+	Ahora su nivel de habilidad es 4.1" {
+		const manteca = new Ingrediente(nombre = "manteca")
+		marcos.agregarIngrediente(manteca, 200)
+		assert.that(marcos.habilidad() == 4.1) 
+	}
+	
+	test "El nivel de habilidad de sonia es 4" {
+		assert.that(sonia.habilidad() == 4)
+	}
+	
+	test "Cambio el ingrediente de sonia a azucar con una cantidad de 500. Cambio su 
+	instrumento a cuaderno con 4 hojas. Ahora su nivel de habilidad es 5.5" {
+		sonia.cambiarIngrediente(azucar, 500)
+		sonia.cambiarInstrumento(cuaderno)
+		assert.that(sonia.habilidad() == 5.5)
+	}
+	
+	test "El nivel de habilidad de samanta es 9" {
+		assert.that(samanta.habilidad() == 9)
+	}
+	
+	test "El nivel de habilidad de lucas con ingredientes distintos es 6.5" {
+		assert.that(lucas.habilidad() == 6.5)
+	}
+	
+	test "El nivel de habilidad de lucas con ingredientes iguales es 7.5" {
+		lucas.cambiarIngrediente(azucar)
+		assert.that(lucas.habilidad() == 7.5)
+	}
+	
+	test "El pastelero mas habilidoso es samanta" {
+		assert.that(pasteleros.elMasHabilidoso(pasteleros.pasteleros()) == samanta)
+	}
+	
+	test "La diferencia entre la mayor y la menor habilidad es 5.1" {
+		assert.that(pasteleros.diferenciaEntreExtremos(pasteleros.pasteleros()) == 5.1)
+	}
+	
+	test "Marcos no puede preparar su postre favorito" {
+		assert.notThat(marcos.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Marcos con 4 años de experiencia y 1300 gramos de chocolate puede preparar su postre favorito" {
+		marcos.cambiarExperiencia(4)
+		marcos.agregarIngrediente(chocolate, 1300)
+		assert.that(marcos.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Sonia no puede preparar su postre favorito" {
+		assert.notThat(sonia.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Sonia usando como instrumento al cuaderno con 4 paginas puede preparar su postre
+	favorito" {
+		sonia.cambiarInstrumento(cuaderno)
+		assert.that(sonia.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Samanta no puede preparar su postre favorito" {
+		assert.notThat(samanta.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Lucas puede preparar su postre favorito" {
+		assert.that(lucas.puedePrepararSuPostreFavorito())
+	}
+	
+	test "Lucas solo con solo un ingrediente no puede preparar su postre favorito" {
+		lucas.cambiarIngrediente(azucar)
+		assert.notThat(lucas.puedePrepararSuPostreFavorito())
+	}
+	
+	test "El pastelero mas habilidoso de los que preparan su postre favorito es lucas" {
+		assert.that(pasteleros.elMasHabilidoso(pasteleros.losQuePreparanSuPostreFavorito()) == lucas)
+	}
+	
+	test "Como lucas es el unico que puede preparar su postre favorito, la diferencia entre
+	la mayor y la menor habilidad es 0" {
+		assert.that(pasteleros.diferenciaEntreExtremos(pasteleros.losQuePreparanSuPostreFavorito()) == 0)
+	}
+
+}

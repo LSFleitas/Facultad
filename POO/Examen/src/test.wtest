@@ -1,0 +1,65 @@
+import claseEstampilla.*
+import claseEstampillaConmemorativa.*
+import claseEstampillaOrdinaria.*
+import claseHojitaBlock.*
+import claseMiembro.*
+import clasePais.*
+import sociedad.*
+
+describe "Test de Sociedad" {
+	
+	const yugoslavia = new Pais(anioDeFundacion=1918, anioDeDesaparicion=1991,coeficiente=1)
+	const argentina = new Pais(anioDeFundacion=1810, anioDeDesaparicion=new Date().year(), coeficiente = 1)
+	const japon = new Pais(anioDeFundacion=1816,coeficiente=10,anioDeDesaparicion=new Date().year())
+	const rusia = new Pais(anioDeFundacion=1922,coeficiente=3,anioDeDesaparicion=new Date().year())
+	
+	
+	const estampillaYugoslavia = new EstampillaConmemorativa(descripcion="Campana gigante", pais=yugoslavia,valorFacial=737, anioDeEmision=1992)
+	const estampillaArgentina = new EstampillaConmemorativa(descripcion = "Complejo Zarate-Brazo Largo", pais=argentina,valorFacial=300,anioDeEmision=1979)
+	const estampillaJapon = new EstampillaOrdinaria(pais=japon,valorFacial=300,anioDeEmision=1974)
+	
+	const estampillaRusia1 = new EstampillaConmemorativa(descripcion="",pais=rusia,valorFacial=20,anioDeEmision=1989)
+	const estampillaRusia2 = new EstampillaConmemorativa(descripcion="",pais=rusia,valorFacial=20,anioDeEmision=1989)
+	const estampillaRusia3 = new EstampillaConmemorativa(descripcion="",pais=rusia,valorFacial=15,anioDeEmision=1989)
+	const estampillaRusia4 = new EstampillaOrdinaria(pais=rusia,valorFacial=20,anioDeEmision=1989)
+	const estampillaRusia5 = new EstampillaOrdinaria(pais=rusia,valorFacial=20,anioDeEmision=1989)
+	const estampillaRusia6 = new EstampillaOrdinaria(pais=rusia,valorFacial=20,anioDeEmision=1989)
+	
+	const estampillaRusia = new HojitaBlock(
+											descripcion="",
+											pais=rusia,
+											anioDeEmision=1989,
+											composicion=#{estampillaRusia1,estampillaRusia2,estampillaRusia3,estampillaRusia4,estampillaRusia5,estampillaRusia6}
+											)
+											
+	test "La cotizacion de la estampilla de Yugoslavia es 1000000" {
+		assert.equals(estampillaYugoslavia.cotizacion(),1000000)
+	}
+	
+	test "La cotizacion de la estampilla de Argentina esta en 900" {
+		assert.equals(estampillaArgentina.cotizacion(), 900)
+	}
+	
+	test "La cotizacion de Japon es de 3000" {
+		assert.equals(estampillaJapon.cotizacion(),3000)
+	}
+	
+	test "Si la estampilla de japón fuera del año 1918, saldría 3010" {
+		estampillaJapon.anioDeEmision(1918)
+		assert.equals(estampillaJapon.cotizacion(),3010)
+	}
+	
+	test  "Si la estampilla de Japon fuera del año 1880, su cotizacion ascendería a 3150" {
+		estampillaJapon.anioDeEmision(1880)
+		assert.equals(estampillaJapon.cotizacion(),3150)
+	}
+	
+	test "Si japón se hubiera fundado luego de 1980, dicha estampilla valdría 1000000" {
+		japon.anioDeFundacion(1981)
+		assert.equals(estampillaJapon.cotizacion(),1000000)
+	}
+	
+	test "Si la estampilla de Rusia es una HojitaBlock emitida en 1989, cuyo valor facial sea 115, coeficiente de rusia = 3, sin estar fallada, su cotizacion es 690" {
+		assert.equals(estampillaRusia.cotizacion(), 690)
+	}
+}

@@ -1,0 +1,23 @@
+import mensajeros.*
+
+describe "Tests de los mensajeros" {
+	
+	test "roberto puede entregar un paquete pago en un camion con un acoplado a brooklyn" {
+		camion.acoplados(1)
+		paquete.pagar(50)
+		assert.that(paquete.puedeSerEntregadoPor(roberto))
+	}
+	
+	test "roberto puede entregar un paquete pago en un camion con un acoplado a matrix" {
+		camion.acoplados(1)
+		paquete.pagar(50)
+		paquete.destino(matrix)
+		assert.notThat(paquete.puedeSerEntregadoPor(roberto))
+		}
+		
+	
+	test "neo con credito puede entregar un paquete a matrix" {
+		paquete.destino(matrix)
+		assert.that(paquete.puedeSerEntregadoPor(neo))
+	}
+}

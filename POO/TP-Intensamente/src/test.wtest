@@ -1,0 +1,9 @@
+import intensamente.*
+
+test "felicidad" {
+	assert.that(riley.muyFeliz())
+}
+
+test "riley empieza alegre"{
+	assert.equals(alegria, riley.emocionDominante())
+}

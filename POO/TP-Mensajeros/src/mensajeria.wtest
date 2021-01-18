@@ -1,0 +1,49 @@
+import mensajeria.*
+import mensajeros.*
+
+describe "Test de mensajeria " {
+
+test "la mensajeria no tiene mensajeros"{
+	assert.equals(mensajeria.mensajeros(), [])
+}
+test "la mensajeria no tiene a neo"{
+	assert.notThat(mensajeria.mensajeros().contains(neo))
+}
+test "La mensajeria tiene a neo como empleado si lo agregarmos" {
+	mensajeria.contratar(neo)
+	assert.that(mensajeria.mensajeros().contains(neo))
+}
+
+test "La mensajeria devuelve a neo (con credito) y chuck si le pido los cantidatos posibles"{
+	mensajeria.contratarTodos()
+	paquete.destino(brooklyn)
+	paquete.pagar(50)
+	assert.equals(mensajeria.candidatosPara(paquete).asSet(), #{neo, chuck})
+}
+
+test "La mensajeria tiene Sobrepeso si contrata a todos"{
+	mensajeria.contratarTodos()
+	assert.that(mensajeria.tieneSobrepeso())
+}
+
+test "Todos los empleados de la mensajeria pueden entregar el paquetito"{
+	mensajeria.contratar(neo)
+	mensajeria.contratar(chuck)
+	paquete.destino(brooklyn)
+	assert.equals(mensajeria.candidatosPara(paqueteFacil), mensajeria.mensajeros())
+}
+
+test "La mensajeria tiene sobrepeso si contrata a chuck norris "{
+	mensajeria.contratar(chuck)
+	assert.that(mensajeria.tieneSobrepeso())
+}
+
+test "Si neo es empleado, Hay un mensajero que puede enviar el paquete a matrix" {
+	mensajeria.contratar(neo)
+	paquete.destino(matrix)
+	paquete.pagar(50)
+	assert.that(paquete.puedeSerEntregadoPor(neo))
+}
+
+}
+
